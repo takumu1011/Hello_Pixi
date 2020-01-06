@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>pixi.jsを使ってみる</title>
+</head>
+<body>
+    <div id="pixiView"></div>
+    <!-- ver4.4.5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.5/pixi.min.js"></script>
+    <script>
+        var width=600;
+        var height=600;
+        //ステージ
+        var stage=new PIXI.Stage(0x00000);
+        //レンダラー
+        var renderer=PIXI.autoDetectRenderer(width,height);
+        //レンダラーのviewをDOMに追加
+        document.getElementById('pixiView').appendChild(renderer.view);
+        //テキストオブジェクトの作成
+        var word='Hello pixi';
+        var style={font: 'bold 42px Arial', fill: 'white'};
+        var textObj=new PIXI.Text(word, style);
+        textObj.position.x=0;
+        textObj.position.y=height/2;
+        //テキストオブジェクトをステージに乗せる
+        stage.addChild(textObj);
+
+        //アニメーション関数を定義
+        function animate(){
+            requestAnimationFrame(animate);
+            //オブジェクトを動かす処理
+            textObj.rotation+=0.01;
+            textObj.position.x+=2;
+            if(textObj.position.x>850){
+                textObj.position.x=-250;
+            }
+            //描画する
+            renderer.render(stage);
+        }
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
